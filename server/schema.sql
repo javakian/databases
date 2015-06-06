@@ -21,6 +21,13 @@ CREATE TABLE rooms (
   PRIMARY KEY (roomId)
 );
 
+CREATE TABLE allMessages (
+  username CHAR(20) NOT NULL,
+  text VARCHAR(160) NOT NULL,
+  roomname VARCHAR(20) NOT NULL,
+  createdAt TIMESTAMP NOT NULL
+);
+
 /* Create other tables and define schemas for them here! */
 
 

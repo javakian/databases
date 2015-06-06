@@ -12,9 +12,10 @@ $(document).ready(function(){
   };
   var data = function(){
     $.ajax({
-      url:'http://127.0.0.1:3000/classes/',
+      url:'http://127.0.0.1:3000/classes/messages',
       context: document.body
     }).done(function(data){
+      console.log(data);
       data = JSON.parse(data);
       for(var i = 0; i < data.results.length; i++) {
         if(data.results[i].text && data.results[i].username && new Date(data.results[i].createdAt) > new Date(requestTime)
@@ -55,14 +56,16 @@ $(document).ready(function(){
       'roomname': roomAssignment
     };
     $.ajax({
-      url: 'http://127.0.0.1:3000/classes/',
+      url: 'http://127.0.0.1:3000/classes/messages',
       type: 'POST',
       data: JSON.stringify(message),
-      contentType: 'application/json',
+      // contentType: 'application/json',
       success: function (data) {
         console.log('chatterbox: Message sent');
       },
-      error: function (data) {
+      error: function (err, data) {
+        console.log(data);
+        console.log(err);
         console.error('chatterbox: Failed to send message');
       }
     });
@@ -82,13 +85,12 @@ $(document).ready(function(){
 
   $(document).on('click', 'span', function() {
     var user = $(this).attr('data');
-    console.log(user);
+    // console.log(user);
     if(friends[user]) {
       delete friends[user];
     } else {
       friends[user] = true;
     }
-    console.log(friends);
     updateFriends();
   });
 
