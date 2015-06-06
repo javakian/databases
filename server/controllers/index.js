@@ -1,25 +1,14 @@
 var models = require('../models');
 var bluebird = require('bluebird');
 var urlParser = require('url');
-
+var getAsync = bluebird.promisifyAll(models.messages.get);
 
 
 module.exports = {
   messages: {
     get: function (req, res) {
       console.log('called');
-      var parts = urlParser.parse(req.url);
-      var path = parts.pathname;
-      bluebird.promisy(models.messages.get(req, res)).then(res.send(path, function(){
-        console.log('something');
-      }));
-
-      // var promise = function(path){
-      //   return new Promise(function())
-      // }
-      // models.messages.get(req, res).then
-      console.log(models.messages.get(req, res));
-      // res.send('200', function(){ consolmodels.messages.get(req, res)); });
+      getAsync.call(models.messages.get).then(res.send('something'));
     }, // a function which handles a get request for all messages
     post: function (req, res) {
       // collectData(req, function(data){
