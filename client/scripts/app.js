@@ -12,7 +12,7 @@ $(document).ready(function(){
   };
   var data = function(){
     $.ajax({
-      url:'http://127.0.0.1:3000/classes/',
+      url:'http://127.0.0.1:3000/classes/messages',
       context: document.body
     }).done(function(data){
       data = JSON.parse(data);
@@ -41,7 +41,7 @@ $(document).ready(function(){
   };
 
 // data();
-  setInterval(data, 1000);
+  // setInterval(data, 1000);
 
   $('#submitButton').click(function(){
     // debugger;
@@ -55,7 +55,7 @@ $(document).ready(function(){
       'roomname': roomAssignment
     };
     $.ajax({
-      url: 'http://127.0.0.1:3000/classes/',
+      url: 'http://127.0.0.1:3000/classes/messages',
       type: 'POST',
       data: JSON.stringify(message),
       contentType: 'application/json',

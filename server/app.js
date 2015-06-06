@@ -23,9 +23,8 @@ app.use(parser.json());
 
 // Set up our routes
 app.use("/classes", router);
-// app.get('/classes', function (req, res) {
-//   res.send('GET request to the homepage');
-// });
+// app.use(defaultCorsHeaders);
+
 
 // Serve the client files
 app.use(express.static(__dirname + "../client"));
@@ -35,6 +34,15 @@ if (!module.parent) {
   app.listen(app.get("port"));
   console.log("Listening on", app.get("port"));
 }
+
+// var defaultCorsHeaders = function(req, res, next) {
+//   res.header("access-control-allow-origin", "*");
+//   res.header("access-control-allow-methods", "GET, POST, PUT, DELETE, OPTIONS");
+//   res.header("access-control-allow-headers", "content-type, accept");
+//   res.header("access-control-max-age", 10); // Seconds.
+
+//   next();
+// };
 
 // db.connection.end();
 

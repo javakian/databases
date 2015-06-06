@@ -5,16 +5,25 @@ var db = require('../db');
 
 module.exports = {
   messages: {
-    get: function () {
+
+    stuff: {
+      results:[]
+    },
+
+    get: function (callback) {
       console.log('got to query');
       db.connection.query('SELECT * FROM allMessages', function(err, rows, fields){
         if(err){
           console.log('this is an error');
           throw err;
         }
-        return rows;
+        callback(rows);
+        console.log("rows: " + JSON.stringify(rows));
+        console.log(messages.stuff);
+        // data.results.push(JSON.stringify(rows));
       });
-    }, // a function which produces all the messages
+    },
+       // a function which produces all the messages
     post: function () {} // a function which can be used to insert a message into the database
   },
 

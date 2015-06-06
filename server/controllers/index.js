@@ -8,7 +8,7 @@ module.exports = {
   messages: {
     get: function (req, res) {
       console.log('called');
-      getAsync.call(models.messages.get).then(res.send('something'));
+      getAsync.call(models.messages.get).then(res.send(models.messages.stuff));
     }, // a function which handles a get request for all messages
     post: function (req, res) {
       // collectData(req, function(data){
