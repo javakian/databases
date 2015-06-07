@@ -12,9 +12,9 @@ $(document).ready(function(){
   };
   var data = function(){
     $.ajax({
-      url:'http://127.0.0.1:3000/classes',
-      context: document.body,
-      contentType: 'application/json'
+      url:'http://127.0.0.1:3000/classes/messages',
+      context: document.body
+      // contentType: 'application/json'
     }).done(function(data){
       console.log(data);
       data = JSON.parse(data);
@@ -60,7 +60,7 @@ $(document).ready(function(){
       url: 'http://127.0.0.1:3000/classes/messages',
       type: 'POST',
       data: JSON.stringify(message),
-      contentType: 'application/json',
+      // contentType: 'application/json',
       success: function (data) {
         console.log('chatterbox: Message sent');
       },

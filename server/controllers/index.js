@@ -8,12 +8,12 @@ var db = require('../db');
 module.exports = {
   messages: {
     get: function (req, res) {
-      db.Message.findAll({include: [db.User]})
+      db.Message.findAll( { include: [db.User] } ) // outerjoin
         .complete(function(err, data){
-          console.log('called Message');
           if(err){
             throw err;
           }
+          console.log('called Message');
           res.json(data);
         });
 
@@ -35,30 +35,32 @@ module.exports = {
       //if it does, refer to id,
       //else, create the new user/id
     //send response to user(status)
-    db.User.findOrCreate({where: {username: req.body[username]}})
-      .complete(function(err, results){
+    console.log('----------');
+    console.log(req.body);
+    console.log('----------');
+    db.User.findOrCreate({username: req.body[username]})
+      .then(function(user,err){
         if(err) throw err;
-        var params = {
-          text: req.body[text],
-          userid: results[0].dataValues.id,
-          roomname: req.body[roomname]
-        }
-        db.Message.create(params)
+        db.Message.create(
+          {text: req.body[text],
+          userid: user.dataValues.id,
+          roomname: req.body[roomname]})
           .complete(function(err, results){
             if(err){
               throw err;
             }
-            res.status(201);
-          })
-        });
+            res.sendStatus(201);
+
+        })
 
 
 
   //mysql version
       // module.exports.messages.collectData(req, res, function(data){
       //   models.messages.post(data);
-    }  // });
+    })  // });
   },
+
 
   users: {
     // Ditto as above
@@ -74,8 +76,8 @@ module.exports = {
       db.User.create({username: req.body[username]})
         .complete(function(err,results){
           if(err) throw err;
-          res.status(201);
-        })
+          res.sendStatus(201);
+        });
       }
   }
 
@@ -84,4 +86,5 @@ module.exports = {
   // },
 
 
+}
 };
